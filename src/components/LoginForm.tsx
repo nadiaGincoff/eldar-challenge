@@ -27,6 +27,7 @@ const LoginForm: React.FC = () => {
       <TextField 
         margin="normal"
         required
+        fullWidth
         id="username"
         label="Nombre de usuario"
         name="username"

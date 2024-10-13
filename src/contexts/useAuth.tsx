@@ -2,23 +2,18 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-const ADMIN_TOKEN: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6IkJyZXQiLCJyb2xlIjoiMSJ9.TauEFAzDVttOXbEPAF7QPTG2cdxu9lz3uBtwAveyQ4A"
-const USER_TOKEN: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6IkFudG9uZXR0ZSIsInJvbGUiOiIyIn0.zZMEgeRL5uR24sEcA-1XTHRzsT2dYhMN-Zegfpzim_k"
-const ADMIN_USERNAME: string = "Bret"
-const USER_USERNAME: string = "Antonette" 
-const ADMIN_PASSWORD: string = "admin123"
-const USER_PASSWORD: string = "user123"
+import { ADMIN_TOKEN, USER_TOKEN, ADMIN_USERNAME, USER_USERNAME, ADMIN_PASSWORD, USER_PASSWORD } from '../lib/constants';
 
 interface UserContextType {
   user: User | null;
   loginUser: (username: string, password: string) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
+  isAdmin: boolean;
 }
 
 interface User {
-  id: string;
+  id: number;
   username: string;
   role: 'admin' | 'user';
 }
@@ -30,6 +25,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -57,7 +53,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('token', newToken);
     const decodedToken = jwtDecode<User>(newToken);
     setUser(decodedToken);
-    navigate("/");
+    setIsAdmin(decodedToken.role === 'admin');
+    navigate(`/${decodedToken.role.toLowerCase()}`);
   };
 
   const isLoggedIn = () => {
@@ -73,7 +70,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <UserContext.Provider value={{ user, loginUser, logout, isLoggedIn }}>
+    <UserContext.Provider value={{ user, loginUser, logout, isLoggedIn, isAdmin }}>
       {isReady ? children : null}
     </UserContext.Provider>
   )

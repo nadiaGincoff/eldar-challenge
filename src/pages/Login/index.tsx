@@ -4,8 +4,8 @@ import LoginForm from "../../components/LoginForm";
 
 const LoginPage: React.FC = () => {
   return (
-    <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <Card elevation={7} sx={{ mt: 10, p: 4 }}>
+    <Container component="main" maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 15 }}>
+      <Card elevation={3} sx={{ mt: 10, p: 4 }}>
         <Typography component="h1" variant="h5" align="center" sx={{ fontWeight: 900 }}>
           Iniciar sesión
         </Typography>

@@ -1,0 +1,8 @@
+const ADMIN_TOKEN: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6IkJyZXQiLCJyb2xlIjoiYWRtaW4ifQ.D8b2bBYoIptsJheSpaAmGFLFCAlgnuk_Kgv3T_fkXBs"
+const USER_TOKEN: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6IkFudG9uZXR0ZSIsInJvbGUiOiJ1c2VyIn0.LfGIfVYc9KPK_eXEYaf8tB1WwkYwRDjfhUFBAsoCsf8"
+const ADMIN_USERNAME: string = "Bret"
+const USER_USERNAME: string = "Antonette" 
+const ADMIN_PASSWORD: string = "admin123"
+const USER_PASSWORD: string = "user123"
+
+export { ADMIN_TOKEN, USER_TOKEN, ADMIN_USERNAME, USER_USERNAME, ADMIN_PASSWORD, USER_PASSWORD }
