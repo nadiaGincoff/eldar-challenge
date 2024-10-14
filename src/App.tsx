@@ -1,9 +1,12 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router';
-
-import { UserProvider } from './contexts/useAuth';
-import Layout from './components/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CircularProgress } from '@mui/material';
+
+import { DrawerProvider } from "./contexts/useDrawer";
+import { UserProvider } from './contexts/useAuth';
+
+import Layout from './components/layouts/Layout';
 
 const queryClient = new QueryClient();
 
@@ -11,12 +14,14 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Layout>
-            <Outlet />
-          </Layout>
+        <DrawerProvider>  
+          <Suspense fallback={<CircularProgress color="secondary" />}>
+            <Layout>
+              <Outlet />
+            </Layout>
           </Suspense>
-        </UserProvider>
+        </DrawerProvider>
+      </UserProvider>
     </QueryClientProvider>
   )
 }

@@ -1,32 +1,37 @@
-import { useAuth } from '../contexts/useAuth';
-import { Box, Button } from '@mui/material';
+import { useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
+
+import { useAuth } from '../contexts/useAuth';
+import CustomButton from './CustomButton';
+import AlertDialog from './AlertDialog';
 
 const LogoutButton = () => {
   const { logout } = useAuth(); 
+  const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
     return logout()
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: 2 }}>
-      <Button
-        variant="contained"
-        startIcon={<LogoutIcon />}
-        sx={{
-          textTransform: 'none',
-          padding: '8px 15px',
-          fontSize: '15px',
-          borderRadius: '8px',
-          backgroundColor: '#5982b1',
-          '&:hover': {
-            backgroundColor: '#587da7',
-          },
-        }}
-        onClick={handleLogout}
+    <>
+      <CustomButton 
+        icon={<LogoutIcon />} 
+        label="Logout"
+        onClick={() => setOpen(true)} 
+        sx={{ marginRight: 2 }}
       />
-    </Box>
+      <AlertDialog 
+        open={open}
+        handleClose={() => setOpen(false)}
+        confirmButtonAction={handleLogout}
+        title="¿Estás seguro de que deseas cerrar sesión?"
+        description="Esta acción no se puede deshacer."
+        cancelButtonText="Cancelar"
+        confirmButtonText="Cerrar sesión"
+      />
+    </>
+    
   );
 };
 

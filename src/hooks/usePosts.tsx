@@ -27,7 +27,7 @@ export const useDeletePost = () => {
 
   return useMutation({ 
     mutationFn: (postId: number) => deletePost(postId),
-    // Comento el onSuccess para evitar que se vuelva a cargar la data una vez creada la publicación, ya que me traeria la data anterior y la publicacion borrada desapareceria.
+    // Comento el onSuccess para evitar que se vuelva a cargar la data una vez creada la publicación, ya que me traeria la data anterior y la publicacion borrada desapareceria al ser fake.
 
     // onSuccess: () => {
     //  queryClient.invalidateQueries({ queryKey: ['posts'] });
@@ -53,7 +53,7 @@ export const useCreatePost = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (postData: PostFormData) => createPost(postData),
-    // Comento el onSuccess para evitar que se vuelva a cargar la data una vez creada la publicación, ya que me traeria la data anterior y la publicacion creada desapareceria.
+    // Comento el onSuccess para evitar que se vuelva a cargar la data una vez creada la publicación, ya que me traeria la data anterior y la publicacion creada desapareceria al ser fake.
 
     // onSuccess: () => {
     //   queryClient.invalidateQueries({ queryKey: ['posts'] });

@@ -1,22 +1,22 @@
 import { usePosts } from "../../../hooks/usePosts";
 import PostCard from "../../../components/PostCard";
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Typography, CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Posts = () => {
   const { posts, isLoading, error } = usePosts()
-
+  const navigate = useNavigate();
+  
+  if (isLoading) return <CircularProgress />
   if (error) return <div>Error:{error.message}</div>
 
   return (
-    <Box>
-      <h1>Posts</h1>
+    <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2, mt: 5}}>
       {posts?.map((post) => (
-        <>
-          <Box key={post.id}>
-            <PostCard key={post.id} post={post} />
-            <Divider sx={{ my: 2 }} />
-          </Box>
-        </>
+        <Box key={post.id} onClick={() => navigate(`/post/${post.id}`)}>
+          <PostCard key={post.id} post={post} />
+          <Divider sx={{ my: 2 }} />
+        </Box>
       ))}
     </Box>
   )

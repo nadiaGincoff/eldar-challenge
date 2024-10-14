@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Box,
   Typography,
-  Button,
   Skeleton,
   Divider,
 } from '@mui/material';
@@ -14,11 +12,12 @@ import {
 import { getAllUsernames } from "../../../services/userService";
 import PostCard from "../../../components/PostCard";
 
-import FormDialog from "../../../components/FormDialog";
+import FormDialog from "./FormDialog";
 import MultipleSelect from "../../../components/MultipleSelect";
 import { useDeletePost, usePosts, useCreatePost } from "../../../hooks/usePosts";
 import { useAuth } from "../../../contexts/useAuth";
 import { PostFormData } from "../../../types/postTypes";
+import CustomButton from "../../../components/CustomButton";
 
 const Posts = () => {
   const { user } = useAuth()
@@ -58,37 +57,34 @@ const Posts = () => {
   if (error) return <div>Error:{error.message}</div>
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', p: 2, width: '100%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', backgroundColor: 'secondary.main' }}>
       <Box
         sx={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center', 
-          mb: 2 
+          marginY: 5,
         }}
       >
-        <Typography variant="h4" component="h1">
-          Publicaciones
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            xs: { fontSize: '10px' }, 
+            sm: { fontSize: '15px' }, 
+            md: { fontSize: '20px' }
+          }}
+        >
+          Aqui podras visualizar y crear publicaciones
         </Typography>
-        <Button
+        <CustomButton
           variant="contained"
           startIcon={<AddIcon />}
-          sx={{
-            textTransform: 'none',
-            padding: '8px 15px',
-            fontSize: '15px',
-            borderRadius: '8px',
-            backgroundColor: '#5982b1',
-            '&:hover': {
-              backgroundColor: '#587da7',
-            },
-          }}
+          label="Crear publicación"
           onClick={() => setIsCreatingPost(true)}
-        >
-          Nueva publicación
-        </Button>
+        />
       </Box>
       <MultipleSelect names={names} label="Selecciona un usuario" />
+      <Divider sx={{ my: 2 }} />
       {isLoading ? (
         <Skeleton variant="rectangular" height={118} />
       ) : (

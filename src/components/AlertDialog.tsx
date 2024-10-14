@@ -6,8 +6,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Button,
 } from '@mui/material';
+
+import CustomButton from './CustomButton';
 
 interface AlertDialogProps {
   title: string;
@@ -44,41 +45,28 @@ export default function AlertDialog({ title, description, cancelButtonText, conf
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ padding: '16px', justifyContent: 'flex-end' }}>
-          <Button
+          <CustomButton
+            label={cancelButtonText}
             onClick={handleClose}
             variant="outlined"
             sx={{
-              textTransform: 'none',
-              padding: '8px 15px',
-              fontSize: '15px',
-              borderRadius: '8px',
-              color: '#587da7',
-              borderColor: '#1976d2',
+              backgroundColor: 'transparent',  
+              color: 'primary.main',
+              borderColor: 'primary.main',
               '&:hover': {
-                backgroundColor: '#587da7',
-                color: 'white',
+                backgroundColor: 'primary.main',
+                color: 'secondary.main',
               },
             }}
-          >
-            {cancelButtonText}
-          </Button>
-          <Button
+          /> 
+          <CustomButton
             onClick={confirmButtonAction}
-            variant="contained"
-            autoFocus
-            sx={{
-              textTransform: 'none',
-              padding: '8px 15px',
-              fontSize: '15px',
-              borderRadius: '8px',
-              backgroundColor: '#5982b1',
+            label={confirmButtonText}
+            sx={{ marginRight: 2,  backgroundColor: 'text.primary',
               '&:hover': {
-                backgroundColor: '#587da7',
-              },
-            }}
-          >
-            {confirmButtonText}
-          </Button>
+                backgroundColor: 'primary.main',
+              }, }}
+          />
         </DialogActions>
       </Dialog>
     </Fragment>

@@ -1,11 +1,11 @@
-import { Fragment, useState } from 'react';
-import Button from '@mui/material/Button';
+import { Fragment } from 'react';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CustomButton from '../../../components/CustomButton';
 
 export default function FormDialog({ 
   open, 
@@ -28,6 +28,7 @@ export default function FormDialog({
             borderRadius: '16px',
             padding: '20px',
             boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
+            backgroundColor: 'background.default'
           },
         }}
         PaperProps={{
@@ -41,9 +42,9 @@ export default function FormDialog({
           },
         }}
       >
-        <DialogTitle>Crear publicación</DialogTitle>
+        <DialogTitle sx={{ color: 'text.primary' }}>Crear publicación</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={{ color: 'text.secondary' }}>
             Por favor, ingrese el título y el contenido de la publicación.
           </DialogContentText>
           <TextField
@@ -56,6 +57,9 @@ export default function FormDialog({
             type="text"
             fullWidth
             variant="standard"
+            sx={{
+              backgroundColor: 'background.default'
+            }}
           />
           <TextField
             autoFocus
@@ -72,40 +76,32 @@ export default function FormDialog({
           />
         </DialogContent>
         <DialogActions>
-          <Button 
+          <CustomButton
+            label="Cancelar"
             onClick={handleClose}
             variant="outlined"
             sx={{
-              textTransform: 'none',
-              padding: '8px 15px',
-              fontSize: '15px',
-              borderRadius: '8px',
-              color: '#587da7',
-              borderColor: '#1976d2',
+              backgroundColor: 'transparent',  
+              color: 'primary.main',
+              borderColor: 'primary.main',
               '&:hover': {
-                backgroundColor: '#587da7',
-                color: 'white',
+                backgroundColor: 'primary.main',
+                color: 'secondary.main',
               },
             }}
-          >
-            Cancelar
-          </Button>
-          <Button 
+          /> 
+          <CustomButton 
+            label={isCreatingPost ? 'Publicando...' : 'Crear publicación'}
             type="submit"
             variant="contained"
             sx={{
-              textTransform: 'none',
-              padding: '8px 15px',
-              fontSize: '15px',
-              borderRadius: '8px',
-              backgroundColor: '#5982b1',
+              backgroundColor: 'text.primary',
               '&:hover': {
-                backgroundColor: '#587da7',
+                backgroundColor: 'primary.main',
               },
             }}
-          >
-            {isCreatingPost ? 'Publicando...' : 'Crear publicación'}
-          </Button>
+          />
+           
         </DialogActions>
       </Dialog>
     </Fragment>

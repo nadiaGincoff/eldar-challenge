@@ -4,36 +4,47 @@ import ArticleIcon from '@mui/icons-material/Article';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from 'react-router-dom';
+import { useDrawer } from '../contexts/useDrawer';
 
 const DrawerContent = () => {
   const navigate = useNavigate();
 
   const handleListItemClick = (text: string) => {
-    navigate(`/admin/${text.toLowerCase()}`);
+    if (text === 'Posts') {
+      navigate('/admin');
+    } else {
+      navigate(`/admin/${text.toLowerCase()}`);
+    }
   }
 
   return (
-    <List sx={{ mt: 10 }}>
+    <List sx={{ mt: 25 }}>
       {['Posts', 'Users', 'Settings'].map((text, index) => (
         <ListItemButton divider key={text} onClick={() => handleListItemClick(text)}>
-          <ListItemIcon>
+          <ListItemIcon sx={{ color: 'text.primary' }}>
             {index === 0 ? <ArticleIcon /> :
               index === 1 ? <PeopleIcon /> :
                 index === 2 ? <DashboardIcon /> :
                   <SettingsIcon />}
           </ListItemIcon>
-          <ListItemText primary={text} />
+          <ListItemText primary={text} sx={{ color: 'text.primary' }} />
         </ListItemButton>
       ))}
     </List>
   );
 }
 
-const DrawerMenu = ({ drawerWidth, mobileOpen, handleDrawerToggle }: { drawerWidth: number, mobileOpen: boolean, handleDrawerToggle: () => void }) => {
+const DrawerMenu = () => {
+  const { mobileOpen, handleDrawerToggle, drawerWidth } = useDrawer();
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, backgroundColor: "black", mt: 10 }}
+      sx={{ 
+        width: { sm: drawerWidth }, 
+        flexShrink: { sm: 0 }, 
+        mt: 10,
+        backgroundColor: 'background.default',
+      }}
       aria-label="mailbox folders"
     >
       <Drawer
@@ -44,19 +55,9 @@ const DrawerMenu = ({ drawerWidth, mobileOpen, handleDrawerToggle }: { drawerWid
           keepMounted: true,
         }}
         sx={{
-          display: { xs: 'block', sm: 'none' },
+          backgroundColor: 'background.default',
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
         }}
-      >
-        <DrawerContent />
-      </Drawer>
-      <Drawer
-        variant="permanent"
-        sx={{
-          display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-        }}
-        open
       >
         <DrawerContent />
       </Drawer>

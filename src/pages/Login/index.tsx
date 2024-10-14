@@ -1,11 +1,19 @@
 import React from "react";
 import { Container, Card, Typography } from "@mui/material";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "./LoginForm";
 
 const LoginPage: React.FC = () => {
   return (
-    <Container component="main" maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 15 }}>
-      <Card elevation={3} sx={{ mt: 10, p: 4 }}>
+    <Container 
+      component="main" 
+      maxWidth="md" 
+      sx={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '90vh'
+    }}>
+      <Card elevation={0} sx={{ p: 4, borderRadius: '15px', mt: 10 }}>
         <Typography component="h1" variant="h5" align="center" sx={{ fontWeight: 900 }}>
           Iniciar sesión
         </Typography>

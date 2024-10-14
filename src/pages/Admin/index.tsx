@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom';
 export default function AdminDashboard() {
   return (
     <Box sx={{ 
-      p: 3, 
+      p: 2, 
       display: 'flex', 
       justifyContent: 'center', 
       alignItems: 'center', 

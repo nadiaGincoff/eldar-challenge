@@ -34,7 +34,7 @@ export default function MultipleSelect({ names, label }: { names: string[], labe
 
   return (
     <div>
-      <FormControl sx={{ width: '100%', mb: 2 }}>
+      <FormControl sx={{ width: '100%', }}>
         <InputLabel id="input-label">{label}</InputLabel>
         <Select
           fullWidth

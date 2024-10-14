@@ -30,6 +30,7 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
   const [updatedPost, setUpdatedPost] = useState<Post>(post);
   const { data, error, isFetching } = useUserById(post.userId);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSavingDialogOpen, setIsSavingDialogOpen] = useState(false);
   const { isAdmin } = useAuth();
 
   const {
@@ -47,12 +48,11 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
 
   const handleEditPost = () => {
     if (isEditing) {
-      updatePost({ postId: post.id, postData: updatedPost })
-      setIsEditing(false);
+      setIsSavingDialogOpen(true);
     } else {
       setIsEditing(true);
     }
-  }
+  };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
@@ -66,8 +66,21 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
     setIsDialogOpen(false)
   }
 
-  return (
-    <Card elevation={0} sx={{ width: '100%' }} key={post.id}>
+  const handleConfirmEditPost = () => {
+    updatePost({ postId: post.id, postData: updatedPost });
+    setIsSavingDialogOpen(false);
+    setIsEditing(false);
+  }
+ 
+ return (
+    <Card 
+      elevation={0} 
+      sx={{ 
+        width: '100%', 
+        backgroundColor: 'background.default',
+      }} 
+      key={post.id}
+    >
       {isFetching || commentsIsFetching ? (
         <Skeleton variant="rectangular" height={118} />
       ) : error || commentsError ? (
@@ -75,7 +88,7 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
       ) : (
         <>
           <CardContent component="div" sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography variant="subtitle2" component="p" sx={{ mb: 1 }}>
+            <Typography variant="subtitle2" component="p" sx={{ mb: 1, color: 'text.secondary' }}>
               {data?.name}
             </Typography>
             {
@@ -115,7 +128,7 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
             }
           </CardContent>
           <CardActions>
-            <Button size="small" startIcon={<CommentIcon />} sx={{ color: '#5982b1' }}>
+            <Button size="small" startIcon={<CommentIcon />} sx={{ color: 'text.secondary' }}>
               {commentsData?.length}
             </Button>
             {
@@ -124,7 +137,7 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
                   <Button
                     size="small"
                     startIcon={<EditIcon />}
-                    sx={{ color: '#5982b1' }}
+                    sx={{ color: 'text.secondary' }}
                     onClick={handleEditPost}
                   >
                     {isEditing ? 'Guardar' : 'Editar'}
@@ -135,7 +148,7 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
                         size="small"
                         startIcon={<DeleteIcon />}
                         onClick={() => setIsDialogOpen(true)}
-                        sx={{ color: '#5982b1' }}
+                        sx={{ color: 'text.secondary' }}
                       >
                         Borrar
                       </Button>
@@ -147,7 +160,7 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
                         size="small"
                         startIcon={<CancelIcon />}
                         onClick={handleCancelEdit}
-                        sx={{ color: '#5982b1' }}
+                        sx={{ color: 'text.secondary' }}
                       >
                         Cancelar
                       </Button>
@@ -157,6 +170,15 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
               ) : null
             }
           </CardActions>
+          <AlertDialog
+            title="Guardar publicación"
+            description="¿Desea guardar los cambios?"
+            cancelButtonText="Cancelar"
+            confirmButtonText="Guardar"
+            handleClose={() => setIsSavingDialogOpen(false)}
+            confirmButtonAction={handleConfirmEditPost}
+            open={isSavingDialogOpen}
+          />
           <AlertDialog
             title="Eliminar publicación"
             description="¿Estás seguro de querer eliminar esta publicación?"

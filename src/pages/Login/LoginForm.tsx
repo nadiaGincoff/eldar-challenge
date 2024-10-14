@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { TextField, Button, Box, Typography } from "@mui/material";
-import { useAuth } from '../contexts/useAuth';
-
+import { useAuth } from '../../contexts/useAuth';
+import CustomButton from '../../components/CustomButton';
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -43,6 +43,7 @@ const LoginForm: React.FC = () => {
         id="password"
         label="Contraseña"
         name="password"
+        type="password"
         autoComplete="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -52,19 +53,25 @@ const LoginForm: React.FC = () => {
           {error}
         </Typography>
       ) : null}
-      <Button
+      <CustomButton
+        label="Iniciar sesión"
         type="submit"
         fullWidth
         variant="contained"
         sx={{ 
           mt: 3, 
           mb: 3, 
-          backgroundColor: 'black', 
-          color: 'white'
+          color: 'secondary.main',
+          padding: '8px 15px',
+          fontSize: '15px',
+          borderRadius: '50px',
+          backgroundColor: 'text.primary',
+          '&:focus': {
+            backgroundColor: 'secondary.dark',
+          },
         }}
-      >
-        Iniciar sesión
-      </Button>
+      />
+        
     </Box>
   )
 }
