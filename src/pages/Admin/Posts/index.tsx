@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -9,20 +9,22 @@ import {
   Add as AddIcon,
 } from '@mui/icons-material';
 
-import { getAllUsernames } from "../../../services/userService";
 import PostCard from "../../../components/PostCard";
 
 import FormDialog from "./FormDialog";
-import MultipleSelect from "../../../components/MultipleSelect";
+import SelectComponent from "../../../components/Select";
 import { useDeletePost, usePosts, useCreatePost } from "../../../hooks/usePosts";
-import { useAuth } from "../../../contexts/useAuth";
+import { useAllUsernames } from "../../../hooks/useUsers";
+import { useAuth } from "../../../contexts/AuthProvider";
 import { PostFormData } from "../../../types/postTypes";
 import CustomButton from "../../../components/CustomButton";
+import { useSelect } from "../../../hooks/useSelect";
 
 const Posts = () => {
   const { user } = useAuth()
   const { posts, isLoading, error } = usePosts()
   const [isCreatingPost, setIsCreatingPost] = useState(false)
+  const { selectedItem, handleSelectChange } = useSelect();
   const {
     mutate: deletePost,
     isPending: isDeleting,
@@ -33,7 +35,7 @@ const Posts = () => {
     isPending: isCreating,
   } = useCreatePost();
 
-  const [names, setNames] = useState<string[]>([])
+  const { data: usernames } = useAllUsernames()
 
   const handleDeletePost = (postId: number) => {
     deletePost(postId)
@@ -74,22 +76,29 @@ const Posts = () => {
             md: { fontSize: '20px' }
           }}
         >
-          Aqui podras visualizar y crear publicaciones
+          Aquí podrás visualizar y crear publicaciones.
         </Typography>
-        <CustomButton
-          variant="contained"
-          startIcon={<AddIcon />}
-          label="Crear publicación"
-          onClick={() => setIsCreatingPost(true)}
-        />
+        {user?.id == selectedItem ? (
+         <CustomButton
+            variant="contained"
+            startIcon={<AddIcon />}
+            label="Agregar"
+            onClick={() => setIsCreatingPost(true)}
+          />
+        ) : null}
       </Box>
-      <MultipleSelect names={names} label="Selecciona un usuario" />
+      <SelectComponent
+        items={usernames}
+        label="Selecciona un usuario"
+        selectedItem={selectedItem}
+        handleSelectChange={handleSelectChange}
+      />
       <Divider sx={{ my: 2 }} />
       {isLoading ? (
         <Skeleton variant="rectangular" height={118} />
       ) : (
         <Box sx={{ width: '100%' }}>
-          {posts?.map((post) => (
+          {posts?.filter(post => Number(post.userId) == Number(selectedItem)).map((post) => (
             <Box key={post.id}>
               <PostCard 
                 post={post} 

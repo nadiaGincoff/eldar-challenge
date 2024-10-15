@@ -1,19 +1,21 @@
 import React, { useState} from 'react';
 import { TextField, Button, Box, Typography } from "@mui/material";
-import { useAuth } from '../../contexts/useAuth';
+import { useAuth } from '../../contexts/AuthProvider';
 import CustomButton from '../../components/CustomButton';
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const {loginUser} = useAuth();
+  const {loginUser, error: authError} = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
+    setError('');
     e.preventDefault();
     if (!username || !password) {
       setError('Por favor, complete todos los campos.');
       return;
     }
+    
     if (password.length < 6) {
       setError('La contraseña debe tener al menos 6 caracteres.');
       return;
@@ -51,6 +53,11 @@ const LoginForm: React.FC = () => {
       {error ? (
         <Typography color="error" variant="body2">
           {error}
+        </Typography>
+      ) : null}
+      {authError ? (
+        <Typography color="error" variant="body2">
+          {authError}
         </Typography>
       ) : null}
       <CustomButton

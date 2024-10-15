@@ -10,6 +10,7 @@ interface UserContextType {
   logout: () => void;
   isLoggedIn: () => boolean;
   isAdmin: boolean;
+  error: string;
 }
 
 interface User {
@@ -26,7 +27,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  
+  const [error, setError] = useState('');
+
   useEffect(() => {
     const user = localStorage.getItem('user');
     const currentToken = localStorage.getItem('token');
@@ -46,8 +48,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     } else if (username === USER_USERNAME && password === USER_PASSWORD) {
       newToken = USER_TOKEN;
     } else {
-      //TODO: Mostrar mensaje de error al usuario
-      console.log("Invalid credentials");
+      setError('Credenciales inválidas, intente nuevamente');
       return;
     }
     localStorage.setItem('token', newToken);
@@ -70,7 +71,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <UserContext.Provider value={{ user, loginUser, logout, isLoggedIn, isAdmin }}>
+    <UserContext.Provider value={{ 
+      user, 
+      loginUser, 
+      logout, 
+      isLoggedIn, 
+      isAdmin, 
+      error 
+    }}>
       {isReady ? children : null}
     </UserContext.Provider>
   )

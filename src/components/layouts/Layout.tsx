@@ -3,8 +3,8 @@ import LogoutButton from '../LogoutButton';
 import {  
   Menu as MenuIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/useAuth';
-import { useDrawer } from '../../contexts/useDrawer';
+import { useAuth } from '../../contexts/AuthProvider';
+import { useDrawer } from '../../contexts/DrawerProvider';
 import { useLocation } from 'react-router-dom';
 import CustomButton from "../CustomButton";
 import { useNavigate } from 'react-router-dom';
@@ -46,12 +46,13 @@ const Header = () => {
             alignItems: 'center', 
             backgroundColor: 'text.primary', 
             justifyContent: 'center', 
-            paddingX: 2, 
-            paddingY: 2,
-            borderRadius: 50
+            paddingX: 1, 
+            paddingY: 1,
+            borderRadius: 50,
+            cursor: 'pointer'
           }}
         >
-          <img src={"../assets/eldar-logo.webp"} alt="Logo" style={{ height: 25, width: 'auto' }} />
+          <img src={"../assets/eldar-logo.webp"} alt="Logo" style={{ height: 20, width: 'auto' }} />
         </Box>
       </Toolbar>
       {isLoggedIn() ? <LogoutButton /> : null}

@@ -22,3 +22,9 @@ export interface User {
     bs: string;
   };
 }
+
+export interface Username {
+  id: number;
+  name: string;
+}
+

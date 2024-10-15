@@ -6,7 +6,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import RoleBasedRoute from "./RoleBasedRoute";
 import AdminLayout from "../components/layouts/AdminLayout";
 import UserLayout from "../components/layouts/UserLayout";
-import { Navigate } from "react-router-dom";
+
 const Login = lazy(() => import('../pages/Login'));
 const Unauthorized = lazy(() => import('../pages/Unauthorized'));
 
@@ -17,7 +17,10 @@ const AdminSettings = lazy(() => import('../pages/Admin/AdminSettings'));
 
 const User = lazy(() => import('../pages/User'));
 const PostsForUser = lazy(() => import('../pages/User/Posts'));
+const Post = lazy(() => import('../pages/User/Post'));
 const Home = lazy(() => import('../pages/Home'));
+
+const Error = lazy(() => import('../components/Error'));
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +41,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "admin",
+        errorElement: <div>Something went wrong</div>,
         element: (
           <ProtectedRoute>
             <RoleBasedRoute allowedRoles={['admin']}> 
@@ -64,6 +68,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "user",
+        errorElement: <Error />,
         element: (
           <ProtectedRoute>
             <RoleBasedRoute allowedRoles={['user']}> 
@@ -76,7 +81,11 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <PostsForUser />
+            element: <PostsForUser />,
+          },
+          {
+            path: "post/:id",
+            element: <Post />
           }
         ]
       },

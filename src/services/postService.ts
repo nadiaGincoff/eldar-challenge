@@ -12,6 +12,16 @@ export const getAllPosts = async (): Promise<Post[]> => {
   }
 }
 
+export const getPostById = async (postId: number): Promise<Post> => {
+  try {
+    const response = await JSONPlaceholderApi.get(`/posts/${postId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching post by id:", error);
+    throw error;
+  }
+}
+
 export const getCommentsByPostId = async (postId: number): Promise<Comment[]> => {
   try {
     const response = await JSONPlaceholderApi.get(`/posts/${postId}/comments`);

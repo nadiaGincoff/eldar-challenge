@@ -4,7 +4,15 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-import { deletePost, getAllPosts, getCommentsByPostId, updatePost, createPost } from '../services/postService';
+import { 
+  deletePost, 
+  getAllPosts, 
+  getCommentsByPostId, 
+  updatePost, 
+  createPost, 
+  getPostById 
+} from '../services/postService';
+
 import { Post, PostFormData} from '../types/postTypes';
 
 export const usePosts = () => {
@@ -14,6 +22,10 @@ export const usePosts = () => {
 
 export const useCommentsByPostId = (postId: number) => {
   return useQuery({ queryKey: ['comments', postId], queryFn: () => getCommentsByPostId(postId)})
+}
+
+export const usePostById = (postId: number) => {
+  return useQuery({ queryKey: ['post', postId], queryFn: () => getPostById(postId)})
 }
 
 export const useUpdatePost = () => {
@@ -67,7 +79,6 @@ export const useCreatePost = () => {
         return [postData, ...oldPosts]
       })
 
-      console.log(previousPosts);
       return { previousPosts }
     },
     onError: (context: any) => {

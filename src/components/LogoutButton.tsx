@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import { useAuth } from '../contexts/useAuth';
+import { useAuth } from '../contexts/AuthProvider';
 import CustomButton from './CustomButton';
 import AlertDialog from './AlertDialog';
 

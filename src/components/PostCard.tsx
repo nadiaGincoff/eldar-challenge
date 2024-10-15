@@ -21,7 +21,7 @@ import AlertDialog from './AlertDialog';
 
 import { Post } from '../types/postTypes';
 import { useUserById } from '../hooks/useUsers';
-import { useAuth } from '../contexts/useAuth';
+import { useAuth } from '../contexts/AuthProvider';
 import { useCommentsByPostId, useUpdatePost } from '../hooks/usePosts';
 import { capitalizeFirstLetter } from '../lib/utils';
 

@@ -1,46 +1,101 @@
-# Getting Started with Create React App
+# Aplicación de Gestión de Publicaciones
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción
 
-## Available Scripts
+Esta aplicación permite gestionar y visualizar posts, con acceso diferenciado según el tipo de usuario. Los usuarios invitados pueden explorar los posts disponibles, mientras que los administradores tienen privilegios adicionales para crear y eliminar publicaciones.
 
-In the project directory, you can run:
+## Roles de Usuario:
 
-### `npm start`
+### Invitado:
+Los usuarios con este rol pueden:
+- Ver todos los posts disponibles en la plataforma.
+- Consultar los detalles de un post específico.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Credenciales**:
+- **Nombre de usuario**: `Antonette`
+- **Contraseña**: `user123`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Administrador:
+Los administradores tienen un control total sobre las publicaciones y pueden:
+- Ver todos los posts.
+- Crear nuevos posts.
+- Eliminar publicaciones existentes.
 
-### `npm test`
+**Credenciales**:
+- **Nombre de usuario**: `Bret`
+- **Contraseña**: `admin123`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+Esta estructura permite a los invitados interactuar con el contenido de manera limitada, mientras que los administradores tienen la flexibilidad para gestionar las publicaciones en su totalidad.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tecnologías utilizadas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React
+- TypeScript
+- Material-UI
+- React Router
+- Axios
+- @tanstack/react-query
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Estructura del Proyecto
 
-### `npm run eject`
+La estructura del proyecto es la siguiente:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### `src/`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `components/`: Componentes reutilizables.
+  - `layouts/`: Layouts de la aplicación.
+- `contexts/`: Contextos de React.
+  - `AuthProvider.tsx`: Contexto para el manejo de la autenticación.
+  - `DrawerProvider.tsx`: Contexto para el manejo del drawer.
+- `hooks/`: Hooks personalizados.
+  - `usePosts.ts`: Hook para la gestión de servicios de posts.
+  - `useUsers.ts`: Hook para la gestión de servicios de usuarios. 
+- `pages/`: Páginas de la aplicación.
+- `routes/`: Rutas de la aplicación.
+- `services/`: Servicios de la aplicación.
+- `styles/`: Estilos de la aplicación.
+- `types/`: Tipos de datos.
+- `lib/`: Funciones utilitarias y constantes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `public/`
+- `assets/`: Recursos estáticos como imágenes, iconos, etc.
+- `index.html`: Archivo HTML principal.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### `package.json`
 
-## Learn More
+### `package-lock.json`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Scripts Disponibles para iniciar el proyecto
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+En el directorio del proyecto, puedes ejecutar:   
+
+
+### Instalación
+
+Para instalar las dependencias del proyecto, ejecuta el siguiente comando en el directorio raíz del proyecto:
+
+```bash
+npm install
+```
+
+### Ejecución
+
+Para iniciar el servidor de desarrollo, ejecuta el siguiente comando en el directorio raíz del proyecto:
+
+```bash
+npm start
+```
+
+Ejecuta el servidor de desarrollo.\
+Abre [http://localhost:3000](http://localhost:3000) para verlo en el navegador.
+
+## Dependencias
+
+Las dependencias del proyecto se gestionan con [npm](https://www.npmjs.com/).
+
+
+## Autora
+
+- [@nadiaGincoff](https://github.com/nadiaGincoff)

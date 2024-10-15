@@ -16,7 +16,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ icon, label, onClick, sx, .
         onClick={onClick}
         sx={{
           color: 'secondary.main',
-          padding: '5px 20px',
+          padding: '10px 20px',
           borderRadius: '50px',
           textTransform: 'none',
           fontSize: '12px',
