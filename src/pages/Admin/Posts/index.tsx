@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -10,16 +10,16 @@ import {
 } from '@mui/icons-material';
 
 import PostCard from "../../../components/PostCard";
-
 import FormDialog from "./FormDialog";
 import SelectComponent from "../../../components/Select";
+import CustomButton from "../../../components/CustomButton";
+
 import { useDeletePost, usePosts, useCreatePost } from "../../../hooks/usePosts";
 import { useAllUsernames } from "../../../hooks/useUsers";
-import { useAuth } from "../../../contexts/AuthProvider";
-import { PostFormData } from "../../../types/postTypes";
-import CustomButton from "../../../components/CustomButton";
 import { useSelect } from "../../../hooks/useSelect";
+import { useAuth } from "../../../contexts/AuthProvider";
 
+import { PostFormData } from "../../../types/postTypes";
 const Posts = () => {
   const { user } = useAuth()
   const { posts, isLoading, error } = usePosts()
@@ -27,7 +27,6 @@ const Posts = () => {
   const { selectedItem, handleSelectChange } = useSelect();
   const {
     mutate: deletePost,
-    isPending: isDeleting,
   } = useDeletePost();
 
   const {
@@ -78,7 +77,7 @@ const Posts = () => {
         >
           Aquí podrás visualizar y crear publicaciones.
         </Typography>
-        {user?.id == selectedItem ? (
+        {Number(user?.id) === Number(selectedItem) ? (
          <CustomButton
             variant="contained"
             startIcon={<AddIcon />}
@@ -98,7 +97,7 @@ const Posts = () => {
         <Skeleton variant="rectangular" height={118} />
       ) : (
         <Box sx={{ width: '100%' }}>
-          {posts?.filter(post => Number(post.userId) == Number(selectedItem)).map((post) => (
+          {posts?.filter(post => Number(post.userId) === Number(selectedItem)).map((post) => (
             <Box key={post.id}>
               <PostCard 
                 post={post} 

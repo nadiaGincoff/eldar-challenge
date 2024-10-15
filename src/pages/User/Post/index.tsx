@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Typography, Avatar, Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import { Box, Typography, Avatar, CardContent, CardMedia, CircularProgress } from '@mui/material';
 import { usePostById } from '../../../hooks/usePosts';
 import { useParams } from 'react-router-dom';
 import { useUserById } from '../../../hooks/useUsers';

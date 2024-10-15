@@ -35,8 +35,6 @@ const PostCard = ({ post, handleDeletePost }: { post: Post; handleDeletePost?: (
 
   const {
     mutate: updatePost,
-    isPending: isUpdating,
-    isSuccess: isUpdateSuccess,
     error: updateError
   } = useUpdatePost();
 

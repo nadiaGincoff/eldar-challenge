@@ -1,10 +1,5 @@
 import jsonplaceholderApi from "./api";
-import { User } from "../types/userTypes";
-
-interface Username {
-  id: number;
-  name: string;
-}
+import { User, Username } from "../types/userTypes";
 
 export const getAllUsernames = async (): Promise<Username[]> => {
   try {

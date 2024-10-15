@@ -23,7 +23,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
-  const [token, setToken] = useState<string | null>(null);
+  const [, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -51,7 +51,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setError('Credenciales inválidas, intente nuevamente');
       return;
     }
+
     localStorage.setItem('token', newToken);
+
     const decodedToken = jwtDecode<User>(newToken);
     setUser(decodedToken);
     setIsAdmin(decodedToken.role === 'admin');

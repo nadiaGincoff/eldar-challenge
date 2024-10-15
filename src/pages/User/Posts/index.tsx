@@ -1,6 +1,6 @@
 import { usePosts } from "../../../hooks/usePosts";
 import PostCard from "../../../components/PostCard";
-import { Box, Divider, Typography, CircularProgress } from "@mui/material";
+import { Box, Divider, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Posts = () => {
